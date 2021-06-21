@@ -1,1 +1,1 @@
-name = "example_pkgMATKOMNIE" 
+import leafleter.generator
