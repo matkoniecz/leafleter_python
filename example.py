@@ -10,4 +10,18 @@ with open("output.html", 'w') as outfile:
   outfile.write(leafleter.generator.get_line(50.06, 19.92, 170, 0, color = 'blue'))
   shape = [[50.06, 19.93], [50.05, 19.80], [50.02, 19.83], [50.06, 19.93]]
   outfile.write(leafleter.generator.get_polygon(shape, color = "green", fill_color = "green"))
+
+
+  geojsonFeature = {
+    "type": "Feature",
+    "properties": {
+        "name": "nananananana",
+        "popupContent": "50/20"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [20, 50]
+    }
+  }
+  outfile.write(leafleter.generator.get_geojson_placing(geojsonFeature))
   outfile.write(leafleter.generator.get_html_page_suffix())

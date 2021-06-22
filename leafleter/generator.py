@@ -1,3 +1,5 @@
+import json
+
 def openstreetmap_copyright_notice():
     return 'data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 
@@ -97,6 +99,13 @@ def get_html_page_prefix(title, lat_centered, lon_centered, zlevel_centered=13, 
         <div id=\"map\"></div><div id=\"pane\">'""" + sidebar_content + """</div>
 
         <script>
+          // added for GeoJson adding support
+          function onEachFeaturePopupAddingForGeojsonCallback(feature, layer) {
+              // does this feature have a property named popupContent?
+              if (feature.properties && feature.properties.popupContent) {
+                  layer.bindPopup(feature.properties.popupContent);
+              }
+          }
           var map = L.map('map').setView(['""" + str(lat_centered) + "', '" + str(lon_centered) + "'], '" + str(zlevel_centered) + """');
           mapLink = '<a href=\"http://openstreetmap.org\">OpenStreetMap</a>';
           """ + tile_layer + """.addTo(map);
@@ -143,3 +152,10 @@ def get_polyline(positions, color = 'red', fill_color = 'red', weight = 3, opaci
         locations_string += get_location(position[0], position[1])
     styling = " {color: '" + str(color) + "', fill: '" + str(fill_color) + "', weight: " + str(weight) + ", opacity: " + str(opacity) + ", lineJoin: 'round'}"
     return "L.polyline([" + locations_string + "]," + styling + ").addTo(map);\n"
+
+def get_geojson_placing(geojson_dictionary):
+    json_str = json.dumps(geojson_dictionary, indent=4)
+    return "L.geoJSON(" + json_str + """, {
+    onEachFeature: onEachFeaturePopupAddingForGeojsonCallback
+}).addTo(map);"""
+
