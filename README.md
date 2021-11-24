@@ -1,6 +1,8 @@
 # Leafleter
 
-Helper script to generate leaflet map websites.
+Helper script to generate Leaflet map websites.
+
+Pypi page: [https://pypi.org/project/leafleter/](https://pypi.org/project/leafleter/)
 
 See [example.py](example.py).
 

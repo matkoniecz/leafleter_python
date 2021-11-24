@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="leafleter",
-    version="0.1.3",
-    author="Example Author",
-    author_email="author@example.com",
-    description="A small example package",
+    version="0.1.4",
+    author="Mateusz Konieczny",
+    author_email="matkoniecz@tutanota.com",
+    description="Helper script to generate leaflet map websites.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/matkoniecz/leafleter_python",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
