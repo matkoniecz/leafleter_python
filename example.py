@@ -4,7 +4,9 @@ with open("output.html", 'w') as outfile:
   outfile.write(leafleter.generator.get_html_page_prefix("website title", 50.06, 19.93))
   outfile.write(leafleter.generator.get_marker("text", 50.06, 19.93))
   outfile.write(leafleter.generator.get_marker("text2", 50.06, 19.94))
-  outfile.write(leafleter.generator.get_marker("text3", 50.06, 19.95))
+  outfile.write(leafleter.generator.get_marker("Zażółć<br>gęślą<br>jaźń", 50.06, 19.95)) # <br> is not escaped!
+  outfile.write(leafleter.generator.get_marker("Pink", 50.07, 19.96, color='pink'))
+  outfile.write(leafleter.generator.get_marker("Green", 50.04, 19.94, color='green'))
   outfile.write(leafleter.generator.get_circle_marker("circle", 50.07, 19.94, radius_in_px = 10))
   outfile.write(leafleter.generator.get_circle_marker("circle", 50.07, 19.96, radius_in_px = 10, options = {"color": '"red"'}))
   outfile.write(leafleter.generator.get_line(50.06, 19.92, 170, 0, color = 'blue'))

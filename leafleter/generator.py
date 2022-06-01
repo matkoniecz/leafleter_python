@@ -69,6 +69,12 @@ def internal_leaflet_styling_part():
     # workaround for https://github.com/Leaflet/Leaflet/issues/4686
     return "\n .leaflet-fade-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-zoom-animated { will-change:auto !important; }"
 
+
+def recoloured_markers_styling():
+    return """
+img.huechange_pinkish_marker { filter: hue-rotate(120deg); }
+img.huechange_green_marker { filter: hue-rotate(240deg); }"""
+
 def get_html_page_prefix(title, lat_centered, lon_centered, zlevel_centered=13, tile_layer=get_standard_OSM_tile_layer(), width_percent=100, sidebar_content="", css=None):
     # asserts for parameters, I wasted over 1 hour on bug that would be caught by this
     float(zlevel_centered)
@@ -93,6 +99,7 @@ def get_html_page_prefix(title, lat_centered, lon_centered, zlevel_centered=13, 
     returned += "\n"
     returned += map_area_part_of_styling(width_percent)
     returned += internal_leaflet_styling_part()
+    returned += recoloured_markers_styling()
     returned +="""\n    </style>
       </head>
       <body>
@@ -122,9 +129,17 @@ def get_html_page_suffix():
 def get_location(lat, lon):
     return "[" + str(lat) + ", " + str(lon) + "]"
 
-def get_marker(text, lat, lon):
+def get_marker(text, lat, lon, color=None):
+    # idea from https://stackoverflow.com/a/61982880/4130619 - thanks!
+    stylings = {'pink': "._icon.classList.add(\"huechange_pinkish_marker\")",
+     'green': "._icon.classList.add(\"huechange_green_marker\")",
+     'blue': "",
+     None: "",
+     }
     location = get_location(lat, lon)
-    return "L.marker(" + location + ").addTo(map).bindPopup(\"" + text + ".\");\n"
+    returned = "L.marker(" + location + ").addTo(map).bindPopup(\"" + text + ".\")"
+    returned += stylings[color]
+    return returned + ";\n"
 
 def get_circle_marker(text, lat, lon, radius_in_px = 10, options = {}):
     location = get_location(lat, lon)
