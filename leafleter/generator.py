@@ -76,11 +76,11 @@ def get_html_page_prefix(title, lat_centered, lon_centered, zlevel_centered=13, 
     float(lon_centered)
     float(width_percent)
     if width_percent > 100:
-        raise
+        raise Exception("map cannot cover more than entire width of screen - width_percent was set to " + str(width_percent))
     if width_percent <= 0:
-        raise
+        raise Exception("map cannot cover less than nothing - width_percent was set to " + str(width_percent))
     if zlevel_centered <= 0:
-        raise
+        raise Exception("zlevel cannot be negative - zlevel_centered was set to " + str(zlevel_centered))
     ######
 
     returned = """
