@@ -4,6 +4,6 @@ cd dist
 pip3 uninstall leafleter -y
 pip3 install --user *.whl
 cd ..
-python3 -m "nose"
+python3 -m unittest
 python3 example.py
 # twine upload dist/* # to upload to PyPi
