@@ -4,6 +4,7 @@ cd dist
 pip3 uninstall leafleter -y
 pip3 install --user *.whl
 cd ..
+python3 ../../python_package_reinstaller/reinstaller.py leafleter # yes, it relies on code on my computer - let me know if anyone else wants to run this script
 python3 -m unittest
 python3 example.py
 # twine upload dist/* # to upload to PyPi
