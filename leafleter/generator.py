@@ -126,6 +126,14 @@ def get_html_page_suffix():
 </html>
 """
 
+def get_bind_popup(text):
+    if '"' in text and "'" not in text:
+        return "bindPopup('" + text + "')"
+    elif '"' not in text:
+        return "bindPopup(\"" + text + "\"')"
+    else:
+        raise Exception("both \" and ' in text: " + text)
+
 def get_location(lat, lon):
     return "[" + str(lat) + ", " + str(lon) + "]"
 
@@ -137,7 +145,7 @@ def get_marker(text, lat, lon, color=None):
      None: "",
      }
     location = get_location(lat, lon)
-    returned = "L.marker(" + location + ").addTo(map).bindPopup(\"" + text + ".\")"
+    returned = "L.marker(" + location + ").addTo(map)." + get_bind_popup(text)
     returned += stylings[color]
     return returned + ";\n"
 
@@ -150,7 +158,7 @@ def get_circle_marker(text, lat, lon, radius_in_px = 10, options = {}):
             option_string += "\t"+ pair + ": " + options[pair] + ","
             option_string += "\n}"
     # docs at https://leafletjs.com/reference-1.4.0.html#circlemarker
-    return "L.circleMarker(" + location + option_string + ").setRadius(" + str(radius_in_px) + ").addTo(map).bindPopup(\"" + text + ".\");\n"
+    return "L.circleMarker(" + location + option_string + ").setRadius(" + str(radius_in_px) + ").addTo(map)." + get_bind_popup(text) + "\n"
 
 def get_line(lat1, lon1, lat2, lon2, color = 'red', weight = 3, opacity = 0.7):
     dummy_color = "black"
