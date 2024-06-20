@@ -103,7 +103,7 @@ def get_html_page_prefix(title, lat_centered, lon_centered, zlevel_centered=13, 
     returned +="""\n    </style>
       </head>
       <body>
-        <div id=\"map\"></div><div id=\"pane\">'""" + sidebar_content + """</div>
+        <div id=\"map\"></div><div id=\"pane\">""" + sidebar_content + """</div>
 
         <script>
           // added for GeoJson adding support
