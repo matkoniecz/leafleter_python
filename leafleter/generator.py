@@ -72,8 +72,11 @@ def internal_leaflet_styling_part():
 
 def recoloured_markers_styling():
     return """
+img.huechange_purple_marker { filter: hue-rotate(50deg); }
 img.huechange_pinkish_marker { filter: hue-rotate(120deg); }
-img.huechange_green_marker { filter: hue-rotate(240deg); }"""
+img.huechange_red_marker { filter: hue-rotate(158deg); }
+img.huechange_green_marker { filter: hue-rotate(250deg); }
+"""
 
 def get_html_page_prefix(title, lat_centered, lon_centered, zlevel_centered=13, tile_layer=get_standard_OSM_tile_layer(), width_percent=100, sidebar_content="", css=None):
     # asserts for parameters, I wasted over 1 hour on bug that would be caught by this
@@ -143,6 +146,8 @@ def get_marker(text, lat, lon, color=None):
      'green': "._icon.classList.add(\"huechange_green_marker\")",
      'blue': "",
      None: "",
+     'red': "._icon.classList.add(\"huechange_red_marker\")",
+     'purple': "._icon.classList.add(\"huechange_purple_marker\")",
      }
     location = get_location(lat, lon)
     returned = "L.marker(" + location + ").addTo(map)." + get_bind_popup(text)
