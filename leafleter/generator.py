@@ -133,7 +133,7 @@ def get_bind_popup(text):
     if '"' in text and "'" not in text:
         return "bindPopup('" + text + "')"
     elif '"' not in text:
-        return "bindPopup(\"" + text + "\"')"
+        return "bindPopup(\"" + text + "\")"
     else:
         raise Exception("both \" and ' in text: " + text)
 
