@@ -165,21 +165,25 @@ def get_circle_marker(text, lat, lon, radius_in_px = 10, options = {}):
     # docs at https://leafletjs.com/reference-1.4.0.html#circlemarker
     return "L.circleMarker(" + location + option_string + ").setRadius(" + str(radius_in_px) + ").addTo(map)." + get_bind_popup(text) + "\n"
 
-def get_line(lat1, lon1, lat2, lon2, color = 'red', weight = 3, opacity = 0.7):
+def get_line(lat1, lon1, lat2, lon2, color = 'red', weight = 3, opacity = 0.7, link = None):
     dummy_color = "black"
-    return get_polyline([[lat1, lon1], [lat2, lon2]], color, dummy_color, weight, opacity)
+    return get_polyline([[lat1, lon1], [lat2, lon2]], color, dummy_color, weight, opacity, link)
 
-def get_polygon(positions, color = 'red', fill_color = 'red', weight = 3, opacity = 0.7):
-    return get_polyline(positions, color, fill_color, weight, opacity)
+def get_polygon(positions, color = 'red', fill_color = 'red', weight = 3, opacity = 0.7, link = None):
+    return get_polyline(positions, color, fill_color, weight, opacity, link)
 
-def get_polyline(positions, color = 'red', fill_color = 'red', weight = 3, opacity = 0.7):
+def get_polyline(positions, color = 'red', fill_color = 'red', weight = 3, opacity = 0.7, link = None):
     locations_string = ""
     for position in positions:
         if locations_string != "":
             locations_string += ", "
         locations_string += get_location(position[0], position[1])
     styling = " {color: '" + str(color) + "', fill: '" + str(fill_color) + "', weight: " + str(weight) + ", opacity: " + str(opacity) + ", lineJoin: 'round'}"
-    return "L.polyline([" + locations_string + "]," + styling + ").addTo(map);\n"
+    polyline_creation = "L.polyline([" + locations_string + "]," + styling + ").addTo(map);\n"
+    if link == None:
+        return polyline_creation
+    else:
+        return "var poly_object = " + polyline_creation + "poly_object.on('click', function() {\nwindow.open(\"" + link + "\", '_blank');\n});"
 
 def get_geojson_placing(geojson_dictionary):
     json_str = json.dumps(geojson_dictionary, indent=4)
