@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="leafleter",
-    version="0.1.7",
+    version="0.1.8",
     author="Mateusz Konieczny",
     author_email="matkoniecz@tutanota.com",
     description="Helper script to generate leaflet map websites.",
