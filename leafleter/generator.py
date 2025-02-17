@@ -126,6 +126,8 @@ def get_html_page_suffix():
 """
 
 def get_bind_popup(text):
+    # TODO: provide less horrifying way of handling this
+    # currently it allows passing HTML, making it vulnerable for injection attacks
     if '"' in text and "'" not in text:
         return "bindPopup('" + text + "')"
     elif '"' not in text:
